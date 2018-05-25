@@ -303,6 +303,31 @@ function pdfop() { xreader "$1" 2> $HOME/pdferrors.txt & }
 function txtop() { xed "$1" 2> $HOME/txterrors.txt & }
 
 
+##------------------------##
+## Pandoc aliases
+
+
+function panart() {
+    
+    if [[ "$2" == *.pdf ]]; then
+        pandoc -s --filter pandoc-citeproc "$1" -t latex+smart -o "$2"
+
+    elif [[ "$2" == *.odt ]]; then
+        pandoc -s --filter pandoc-citeproc "$1" -t odt+smart --reference-doc=reference.odt -o "$2"
+    
+    elif [[ "$2" == *.docx ]]; then
+        pandoc -s --filter pandoc-citeproc "$1" -t docx+smart --reference-doc=reference.docx -o "$2"
+    
+    else
+        echo "File ending not added to function yet. Use regular pandoc command or add to function with templates."
+    fi
+} 
+
+function pancvp() {
+    pandoc -s --template=CV.tex "$1" -t latex+smart -o "$2"
+} 
+
+
 ##------------------------------------
 ## diff, diff3 and patch
 ##----------------------------------
