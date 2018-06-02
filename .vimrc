@@ -53,8 +53,6 @@ set nocompatible " Use Vim rather than Vi settings
 
 
 
-"##Taken from thoughbot
-
 set history=50
 set ruler		" Show mouse position
 set showcmd		" display inclomplete commands
@@ -162,6 +160,7 @@ autocmd FileType markdown inoremap ;h4 <Esc>o<Enter><Esc>0i####<Space>
 autocmd FileType markdown inoremap ;h5 <Esc>o<Enter><Esc>0i#####<Space>
 autocmd FileType markdown inoremap ;f <Esc>i![<++>](<++>)<++><Esc>F]F<c4l
 autocmd FileType markdown inoremap ;w <Esc>i[<++>](<++>)<++><Esc>F]F<c4l
+autocmd FileType markdown nnoremap ;C <Esc>:!pandoc % --filter=pandoc-citeproc -f markdown -t latex+smart -o %<.pdf && evince %<.pdf
 
 "Add one citation block.
 autocmd FileType markdown inoremap ;c <Esc>i[@<++>]<++><Esc>F@lc4l
@@ -171,9 +170,16 @@ autocmd FileType markdown inoremap ;2r <Esc>F;bi[@<Esc>f;wi@<Esc>ea]
 autocmd FileType markdown inoremap ;3r <Esc>F;F;bi[@<Esc>f;wi@<Esc>f;wi@<Esc>ea]
 
 
-" Add a metadata block and referens section to markdown articles.
-autocmd FileType markdown inoremap ;B <Esc>gg0O---<Enter>title:<Space><++><Enter>author:<Space><++><Enter>fontsize:<Space>12pt<Enter>bibliography:<Space>"/home/georg/Dokument/Min_Forskning/Artiklar/BibTex/Zotero.bib"<Enter>csl: "/home/georg/Dokument/Min_Forskning/Artiklar/BibTex/chicago-author-date.csl"<Enter>geometry:<Enter><Tab>-<Space>top=1cm<Enter>-<Space>right=1cm<Enter><Esc>I---<Enter><++><Enter><Enter><Esc>11kf<c4l
+" Add a metadata block and referens section to articles.
+" Metadata article
+autocmd FileType markdown inoremap ;B <Esc>gg0O---<Enter>title:<Space><++><Enter>author:<Space><++><Enter>fontsize:<Space>12pt<Enter>bibliography:<Space>"/home/georg/Dokument/Min_Forskning/Artiklar/BibTex/Zotero.bib"<Enter>csl: "/home/georg/Dokument/Min_Forskning/Artiklar/BibTex/chicago-author-date.csl"<Enter>geometry:<Enter><Tab>-<Space>top=1.5cm<Enter>-<Space>right=1cm<Enter><Esc>I---<Enter><++><Enter><Enter><Esc>11kf<c4l
 
+" Metedata beamer press
+
+autocmd FileType markdown inoremap ;P <Esc>gg0O---<Enter>title:<Space><++><Enter>author:<Space><++><Enter>fontsize:<Space>12pt<Enter>bibliography:<Space>"/home/georg/Dokument/Min_Forskning/Artiklar/BibTex/Zotero.bib"<Enter>csl: "/home/georg/Dokument/Min_Forskning/Artiklar/BibTex/chicago-author-date.csl"<Enter>theme:<Space>Montpellier<Enter>themecolor:<Space>rose<Enter>themefont:<Space>structuresmallcapsserif<Enter><Esc>I---<Enter><++><Enter><Enter><Esc>11kf<c4l
+
+
+" Reference secrtion.
 autocmd FileType markdown inoremap ;R <Esc>GA<Enter><Enter>### References<Enter>\noindent<Enter>\vspace{-2em}<Enter>\setlength{\parindent}{-0.6cm}<Enter>\setlength{\leftskip}{0.6cm}<Enter><Esc>
 
 
@@ -181,11 +187,12 @@ autocmd FileType markdown inoremap ;R <Esc>GA<Enter><Enter>### References<Enter>
 
 " Backgrounds and coloschemes
 "{{{
-
+" (Have to be after the plugin section if you
+" installed colorschemes with the plugin manager.)
 "
 set background=dark
 
-" Set the lightline colorscheme
+" Set the lightline (border at the bottom) colorscheme
 "
 "let g:lightline = {'colorscheme': 'nordisk'}
 let g:lightline = {'colorscheme': 'onedark'}
